@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User Attendance Report</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h3>User Attendance Report for {{ username }}</h3>
+
+    <form method="POST" class="form-inline mb-4">
+        <input type="text" name="user_id" class="form-control mr-2" placeholder="User ID" required>
+        <input type="date" name="from_date" class="form-control mr-2" required>
+        <input type="date" name="to_date" class="form-control mr-2" required>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    {% if records %}
+    <table class="table table-bordered">
+        <thead>
+            <tr><th>Date</th><th>Status</th><th>Time</th></tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                <tr>
+                    <td>{{ record[0] }}</td>
+                    <td>{{ record[1] }}</td>
+                    <td>{{ record[2] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No records found.</p>
+    {% endif %}
+</div>
+</body>
+</html>

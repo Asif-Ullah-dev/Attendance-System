@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container mt-5">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-info mt-3 text-center">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+
+        <h2 class="text-center">Admin Dashboard</h2>
+
+        <!-- Success/Error Message Display -->
+        {% if message %}
+            <div class="alert alert-info text-center" role="alert">
+                {{ message }}
+            </div>
+        {% endif %}
+
+        <!-- User Management Table -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4 class="card-title">User Management</h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user[1] }}</td>
+                            <td>
+                                <a href="/view_attendance/{{ user[0] }}" class="btn btn-info btn-sm">View Attendance</a>
+                                <a href="/edit_attendance/{{ user[0] }}" class="btn btn-warning btn-sm">Edit Attendance</a>
+                                <a href="/delete_user/{{ user[0] }}" class="btn btn-danger btn-sm">Delete User</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Leave Requests -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4 class="card-title">Leave Requests</h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Date</th>
+                            <th>Reason</th>
+                            <th>Status</th> 
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for leave in leave_requests %}
+                        <tr>
+                            <td>{{ leave[1] }}</td>  <!-- username -->
+                            <td>{{ leave[2] }}</td>  <!-- date -->
+                            <td>{{ leave[3] }}</td>  <!-- reason -->
+                            <td>{{ leave[4] }}</td> <!--  shows 'pending', 'approved', 'rejected' -->
+                            <td>
+                                {% if leave[4] == 'pending' %}
+                               <a href="/approve_leave/{{ leave[0] }}" class="btn btn-success btn-sm">Approve</a>
+                               <a href="/reject_leave/{{ leave[0] }}" class="btn btn-danger btn-sm">Reject</a>
+                              {% else %}
+                               <span class="badge badge-secondary">{{ leave[4] | capitalize }}</span>
+                              {% endif %}
+                           </td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Reports Section -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4 class="card-title">Generate Reports</h4>
+                <form action="{{ url_for('system_report') }}" method="POST">
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="from_date">From:</label>
+                            <input type="date" class="form-control" name="from_date" required>
+                        </div>
+                        <div class="col">
+                            <label for="to_date">To:</label>
+                            <input type="date" class="form-control" name="to_date" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block mt-3">Generate Report</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Grading System -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4 class="card-title">Grading System</h4>
+                <form action="{{ url_for('update_grades') }}" method="POST">
+                    <div class="form-group">
+                        <label for="grade_a">Days for Grade A:</label>
+                        <input type="number" class="form-control" name="grade_a" value="{{ grade_a }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="grade_b">Days for Grade B:</label>
+                        <input type="number" class="form-control" name="grade_b" value="{{ grade_b }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="grade_c">Days for Grade C:</label>
+                        <input type="number" class="form-control" name="grade_c" value="{{ grade_c }}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Update Grading System</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ✨ NEW Admin Tools Section -->
+        <div class="card mt-4">
+            <div class="card-body text-center">
+                <h4>📊 Admin Tools & Reports</h4>
+                <a href="{{ url_for('assign_grades') }}" class="btn btn-success m-2">📝 Assign Grades</a>
+                <a href="{{ url_for('user_report') }}" class="btn btn-primary m-2">📊 User Report by Date</a>
+                <a href="{{ url_for('system_report') }}" class="btn btn-dark m-2">📋 System Report by Date</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

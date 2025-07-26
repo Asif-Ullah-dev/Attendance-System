@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Attendance</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Edit Attendance for User ID: {{ user_id }}</h2>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <table class="table table-bordered">
+        <thead>
+            <tr><th>Date</th><th>Status</th><th>Time</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <form method="POST">
+                    <td>{{ record[1] }}</td>
+                    <td>
+                        <input type="hidden" name="attendance_id" value="{{ record[0] }}">
+                        <select name="status" class="form-control">
+                            <option value="present" {% if record[2] == 'present' %}selected{% endif %}>Present</option>
+                            <option value="absent" {% if record[2] == 'absent' %}selected{% endif %}>Absent</option>
+                            <option value="leave" {% if record[2] == 'leave' %}selected{% endif %}>Leave</option>
+                        </select>
+                    </td>
+                    <td>{{ record[3] }}</td>
+                    <td><button type="submit" class="btn btn-primary btn-sm">Update</button></td>
+                </form>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+</body>
+</html>
