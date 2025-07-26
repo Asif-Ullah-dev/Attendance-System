@@ -29,22 +29,24 @@ Grades are calculated based on present days:
 | 10 - 14      | D     |
 | Below 10     | F     |
 
-## 📂 Folder Structure
 
+### 📁 Folder Structure
+
+```
 attendance-system/
-
 ├── app.py
 ├── attendance.db
 ├── .gitignore
 ├── README.md
+├── requirements.txt
 ├── screenshots/
 │   ├── login.png
-│   ├── Registeration.png
-│   ├── User_dashboard.png
-│   ├── Admin_dashboard.png
-│   ├── Approve and Rejection.png
-│   ├── Grading_system.png
-│   └── Action work.png
+│   ├── registration.png
+│   ├── user_dashboard.png
+│   ├── admin_dashboard.png
+│   ├── approve_and_rejection.png
+│   ├── grading_system.png
+│   └── action_work.png
 ├── static/
 │   └── profile_pics/
 ├── templates/
@@ -58,6 +60,7 @@ attendance-system/
 │   ├── user_report.html
 │   ├── grades.html
 │   └── edit_attendance.html
+```
 
 ## 🧪 Tech Stack
 - Python 3.13.5
@@ -66,36 +69,36 @@ attendance-system/
 - HTML5 + Bootstrap 4 (Frontend)
 - Jinja2 Templating
 
+
 ## 📸 Screenshots
 
 ### 🔐 Login Page
 ![Login Page](screenshots/login.png)
 
-### 🔐 Registration Page
+### 📝 Registration Page
 ![Registration Page](screenshots/Registration.png)
 
-### 🔐 User Dashboard Page
+### 👤 User Dashboard Page
 ![User Dasboard Page](screenshots/User_dashboard.png)
 
 ### 🧑‍💼 Admin Dashboard
 ![Admin Dashboard](screenshots/Admin_dashboard.png)
 
-### 🔐 Approve and Reject Page
+### ✅ Leave Approval Panel (Approve / Reject) 
 ![Approve and Reject page](screenshots/Approve_and_Reject.png)
 
-### 🔐 Action worked
-![Action worked](screenshots/Action_work.png)
+### 🔔 Action Feedback
+![Action Feedback](screenshots/Action_work.png)
 
-### 📊 Grding System
+### 📊 Grading System
 ![Grading System](screenshots/Grading_system.png)
-
 
 ## 🛠️ Installation
 
 ```bash
 
 # Clone repository
-git clone https://github.com/YOUR_USERNAME/Asif_Ullah_dev.git
+git clone https://github.com/Asif-Ullah-dev/Attendance-System.git
 cd attendance-system
 
 # Set up virtual environment
@@ -107,6 +110,7 @@ pip install -r requirements.txt
 
 # Run the application
 python app.py
+```
 
 ## 🙋 Author
 Made by Asif Ullah
